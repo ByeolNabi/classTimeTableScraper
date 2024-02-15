@@ -17,7 +17,7 @@ def main():
     dict = {"username":Config.ID,"password":Config.PW}  # 디버깅을 위한 코드
     print(dict)
     scrapper = DAPscrapper()
-    scrapper.Login(dict)
+    scrapper.Connect(dict)
     pass
 
 if __name__ == "__main__":
