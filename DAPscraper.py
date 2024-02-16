@@ -1,13 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import CONST
-import csv
-from datetime import datetime
 
-class DAPscrapper():
+class DAPscraper():
     def __init__(self):
         self.driver = webdriver.Chrome()
-        self.f = open(datetime.now().strftime('%Y-%m-%d %H:%M:%S')+'.csv','w', newline='')
         
     def Login(self, dict):
         self.driver.get(CONST.URL)
@@ -39,8 +36,17 @@ class DAPscrapper():
         # tbody안에 tr(한 행) 안에 td(행 열)이 존재, 필요한 정보는 앞 5열
 
         # 강의 정보 테이블 잡아내기
-        class_frame = self.driver.find_element(by=By.ID, value="CP1_dt_result")
-        class_tbody = class_frame.find_element(by=By.TAG_NAME, value="tbody")
+        classInfoFrame = self.driver.find_element(by=By.ID, value="CP1_dt_result")
+        classInfoTbody = classInfoFrame.find_element(by=By.TAG_NAME, value="tbody")
+        # 강의 한 개의 태그(한 행)
+        trTags = classInfoTbody.find_elements(by=By.TAG_NAME, value="tr")
+        # 강의 정보 앞에서 5개 가져오기 (교과목 번호, 분반, 교과목명, 담당교수, 강의실/교실)
+        for trTag in trTags:
+            tdTags = trTag.find_elements(by=By.TAG_NAME, value='td')
+            classInfoLine = [tdTags[0].text, tdTags[1].text, tdTags[2].text, tdTags[3].text, tdTags[4].text]
+            
+
+        print("dfk")
         
         # tr을 한 줄씩 가져오기
         
@@ -59,6 +65,6 @@ class DAPscrapper():
         print("=== 수업계획서조회 메뉴로 이동 ===")
         self.GotoClassInfoPage()
         print("--- 수업계획서조회 메뉴로 이동 완료 ---")
-        # ScrapInfo()
+        self.ScrapClassInfo()
         # driver.quit()
         pass

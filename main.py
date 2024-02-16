@@ -1,5 +1,5 @@
 import argparse
-from DAPscrapper import *
+from DAPscraper import *
 import Config
 
 
@@ -16,8 +16,9 @@ def main():
     # dict = Parser()
     dict = {"username":Config.ID,"password":Config.PW}  # 디버깅을 위한 코드
     print(dict)
-    scrapper = DAPscrapper()
-    scrapper.Connect(dict)
+    scraper = DAPscraper()
+    scraper.Connect(dict)
+
     pass
 
 if __name__ == "__main__":
