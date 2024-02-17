@@ -1,10 +1,14 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import CONST
+import csv
+from datetime import datetime
+
 
 class DAPscraper():
     def __init__(self):
         self.driver = webdriver.Chrome()
+        self.f = None
         
     def Login(self, dict):
         self.driver.get(CONST.URL)
@@ -34,26 +38,33 @@ class DAPscraper():
 
     def ScrapClassInfo(self):
         # tbody안에 tr(한 행) 안에 td(행 열)이 존재, 필요한 정보는 앞 5열
-
+        
         # 강의 정보 테이블 잡아내기
         classInfoFrame = self.driver.find_element(by=By.ID, value="CP1_dt_result")
         classInfoTbody = classInfoFrame.find_element(by=By.TAG_NAME, value="tbody")
-        # 강의 한 개의 태그(한 행)
+        # 강의 한 개의 태그(한 행)을 담은 리스트
         trTags = classInfoTbody.find_elements(by=By.TAG_NAME, value="tr")
-        # 강의 정보 앞에서 5개 가져오기 (교과목 번호, 분반, 교과목명, 담당교수, 강의실/교실)
+
+        # csv파일을 여는 부분
+        self.f = open("./csv/"+datetime.now().strftime('%Y-%m-%d %H:%M:%S')+'.csv', 'a', newline='')
+        writer = csv.writer(self.f)
+
+        # tr을 한 줄씩 가져오고 write하기
         for trTag in trTags:
+            # 강의 정보 앞에서 5개 가져오기 (교과목 번호, 분반, 교과목명, 담당교수, 강의실/교실)
             tdTags = trTag.find_elements(by=By.TAG_NAME, value='td')
             classInfoLine = [tdTags[0].text, tdTags[1].text, tdTags[2].text, tdTags[3].text, tdTags[4].text]
-            
+            writer.writerow(classInfoLine)
+        
+        self.f.close() # 저장하기
 
-        print("dfk")
-        
-        # tr을 한 줄씩 가져오기
-        
         pass
 
     def ScrapClassInfoAll(self):
-        # for
+        # 다음 페이지로 넘어가기
+
+        # 그 페이지에서 강의 정보 가져오기
+        self.ScrapClassInfo()
 
 
         pass
