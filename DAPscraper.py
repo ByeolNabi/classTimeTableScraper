@@ -46,7 +46,8 @@ class DAPscraper():
         trTags = classInfoTbody.find_elements(by=By.TAG_NAME, value="tr")
 
         # csv파일을 여는 부분
-        self.f = open("./csv/"+datetime.now().strftime('%Y-%m-%d %H:%M:%S')+'.csv', 'a', newline='')
+        # self.f = open("./csv/"+datetime.now().strftime('%Y-%m-%d %H:%M:%S')+'.csv', 'a', newline='')
+        self.f = open('./csv/강의정보.csv', 'a', newline='')
         writer = csv.writer(self.f)
 
         # tr을 한 줄씩 가져오고 write하기
@@ -61,11 +62,28 @@ class DAPscraper():
         pass
 
     def ScrapClassInfoAll(self):
-        # 다음 페이지로 넘어가기
+        """
+        다음쪽 style="color:#D9D9D9;" 일 때까지 다음쪽 클릭
+        {이전쪽id:(CP1_COM_Paging_Deu_lBtn_prev),
+         다음쪽id:(CP1_COM_Paging_Deu_lBtn_next)}
+        """
 
-        # 그 페이지에서 강의 정보 가져오기
-        self.ScrapClassInfo()
+        # 일단 현재페이지의 정보 저장
+        lastPage = False
+        while not lastPage:
+            # 그 페이지에서 강의 정보 가져오기
+            self.ScrapClassInfo()
 
+            # 다음 페이지로 넘어가기  
+            nextPage = self.driver.find_element(by=By.ID, value = "CP1_COM_Paging_Deu_lBtn_next")
+            colorOfNextPage = nextPage.get_attribute("style")
+
+            # 마지막이 아니면
+            if colorOfNextPage != 'color: rgb(217, 217, 217);':
+                nextPage.click()
+            else:
+                # 끝까지 잘 했다.
+                lastPage = True
 
         pass
     
@@ -76,6 +94,6 @@ class DAPscraper():
         print("=== 수업계획서조회 메뉴로 이동 ===")
         self.GotoClassInfoPage()
         print("--- 수업계획서조회 메뉴로 이동 완료 ---")
-        self.ScrapClassInfo()
-        # driver.quit()
+        self.ScrapClassInfoAll()
+        self.driver.quit()
         pass
