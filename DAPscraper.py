@@ -70,6 +70,7 @@ class DAPscraper():
 
         # 일단 현재페이지의 정보 저장
         lastPage = False
+        count = 1
         while not lastPage:
             # 그 페이지에서 강의 정보 가져오기
             self.ScrapClassInfo()
@@ -80,10 +81,13 @@ class DAPscraper():
 
             # 마지막이 아니면
             if colorOfNextPage != 'color: rgb(217, 217, 217);':
+                print(f"{str(count).zfill(3)}페이지 : 저장 완료")
+                count += 1
                 nextPage.click()
             else:
                 # 끝까지 잘 했다.
                 lastPage = True
+                print("========================\n모든 강의 정보를 저장했습니다.\n========================")
 
         pass
     
