@@ -2,8 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import CONST
 from ClassInfoWriter import ClassInfoWriter
-import csv
-from datetime import datetime
 
 
 class DAPscraper():
@@ -64,8 +62,10 @@ class DAPscraper():
     def ScrapClassInfoAll(self):
         """
         다음쪽 style="color:#D9D9D9;" 일 때까지 다음쪽 클릭
-        {이전쪽id:(CP1_COM_Paging_Deu_lBtn_prev),
-         다음쪽id:(CP1_COM_Paging_Deu_lBtn_next)}
+        {
+            이전쪽id:(CP1_COM_Paging_Deu_lBtn_prev),
+            다음쪽id:(CP1_COM_Paging_Deu_lBtn_next)
+        }
         """
 
         # 일단 현재페이지의 정보 저장
