@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import CONST
+from ClassInfoWriter import ClassInfoWriter
 import csv
 from datetime import datetime
 
@@ -9,6 +10,7 @@ class DAPscraper():
     def __init__(self):
         self.driver = webdriver.Chrome()
         self.f = None
+        self.csvCtrl = ClassInfoWriter()
         
     def Login(self, dict):
         self.driver.get(CONST.URL)
@@ -46,18 +48,16 @@ class DAPscraper():
         trTags = classInfoTbody.find_elements(by=By.TAG_NAME, value="tr")
 
         # csv파일을 여는 부분
-        # self.f = open("./csv/"+datetime.now().strftime('%Y-%m-%d %H:%M:%S')+'.csv', 'a', newline='')
-        self.f = open('./csv/강의정보.csv', 'a', newline='')
-        writer = csv.writer(self.f)
+        self.csvCtrl.OpenFile("./csv/test.csv","a")
 
         # tr을 한 줄씩 가져오고 write하기
         for trTag in trTags:
             # 강의 정보 앞에서 5개 가져오기 (교과목 번호, 분반, 교과목명, 담당교수, 강의실/교실)
             tdTags = trTag.find_elements(by=By.TAG_NAME, value='td')
             classInfoLine = [tdTags[0].text, tdTags[1].text, tdTags[2].text, tdTags[3].text, tdTags[4].text]
-            writer.writerow(classInfoLine)
+            self.csvCtrl.Write(classInfoLine)
         
-        self.f.close() # 저장하기
+        self.csvCtrl.CloseFile()
 
         pass
 
