@@ -1,8 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import CONST
 from ClassInfoWriter import ClassInfoWriter
 
+URL = "http://sugang.deu.ac.kr:8080/DEUSugang_Login.aspx"
+ID_BOX = "txtID"
+PW_BOX = "txtPW"
+LOGIN_BUTTON = "ibtnLogin"
 
 class SugangScraper():
     def __init__(self):
@@ -11,15 +14,15 @@ class SugangScraper():
         self.csvCtrl = ClassInfoWriter()
         
     def Login(self, dict):
-        self.driver.get(CONST.URL)
+        self.driver.get(URL)
         self.driver.implicitly_wait(5)
 
         title = self.driver.title
         print("\""+title+"\"에 접속했습니다.")
 
-        text_box = self.driver.find_element(by=By.ID, value=CONST.ID_BOX)
-        pw_box = self.driver.find_element(by=By.ID, value=CONST.PW_BOX)
-        login_button = self.driver.find_element(by=By.ID, value=CONST.LOGIN_BUTTON)
+        text_box = self.driver.find_element(by=By.ID, value=ID_BOX)
+        pw_box = self.driver.find_element(by=By.ID, value=PW_BOX)
+        login_button = self.driver.find_element(by=By.ID, value=LOGIN_BUTTON)
 
         print(dict)
         text_box.send_keys(dict.get("username"))

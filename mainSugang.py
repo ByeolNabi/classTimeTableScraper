@@ -22,5 +22,5 @@ def main():
     pass
 
 if __name__ == "__main__":
-    # 계획중
+    main()
     pass

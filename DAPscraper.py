@@ -1,6 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import CONST
+import CONST_DAP
 from ClassInfoWriter import ClassInfoWriter
 
 
@@ -11,15 +11,15 @@ class DAPscraper():
         self.csvCtrl = ClassInfoWriter()
         
     def Login(self, dict):
-        self.driver.get(CONST.URL)
+        self.driver.get(CONST_DAP.URL)
         self.driver.implicitly_wait(5)
 
         title = self.driver.title
         print("\""+title+"\"에 접속했습니다.")
 
-        text_box = self.driver.find_element(by=By.ID, value=CONST.ID_BOX)
-        pw_box = self.driver.find_element(by=By.ID, value=CONST.PW_BOX)
-        login_button = self.driver.find_element(by=By.ID, value=CONST.LOGIN_BUTTON)
+        text_box = self.driver.find_element(by=By.ID, value=CONST_DAP.ID_BOX)
+        pw_box = self.driver.find_element(by=By.ID, value=CONST_DAP.PW_BOX)
+        login_button = self.driver.find_element(by=By.ID, value=CONST_DAP.LOGIN_BUTTON)
 
         print(dict)
         text_box.send_keys(dict.get("username"))
