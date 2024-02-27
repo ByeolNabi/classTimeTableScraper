@@ -32,9 +32,8 @@ class SugangScraper():
         pass
 
     def GotoClassInfoPage(self):
-        self.driver.get("https://dap.deu.ac.kr/Student/UCB/UCB0510Q.aspx?mcd=111968&pid=Ucb0510q")
-
-        look_up_info = self.driver.find_element(by=By.ID, value="CP1_BtnOk")
+        menu_list = self.driver.find_element(by=By.CLASS_NAME, value="menulist")
+        look_up_info = menu_list.find_elements(by=By.TAG_NAME, value="li")[1]
         look_up_info.click()
 
         pass
