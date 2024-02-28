@@ -9,20 +9,25 @@ LOGIN_BUTTON = "ibtnLogin"
 
 class SugangScraper():
     def __init__(self):
+        self.URL = "http://sugang.deu.ac.kr:8080/DEUSugang_Login.aspx"
+        self.ID_BOX = "txtID"
+        self.PW_BOX = "txtPW"
+        self.LOGIN_BUTTON = "ibtnLogin"
+
         self.driver = webdriver.Chrome()
         self.f = None
         self.csvCtrl = ClassInfoWriter()
         
     def Login(self, dict):
-        self.driver.get(URL)
+        self.driver.get(self.URL)
         self.driver.implicitly_wait(5)
 
         title = self.driver.title
         print("\""+title+"\"에 접속했습니다.")
 
-        text_box = self.driver.find_element(by=By.ID, value=ID_BOX)
-        pw_box = self.driver.find_element(by=By.ID, value=PW_BOX)
-        login_button = self.driver.find_element(by=By.ID, value=LOGIN_BUTTON)
+        text_box = self.driver.find_element(by=By.ID, value=self.ID_BOX)
+        pw_box = self.driver.find_element(by=By.ID, value=self.PW_BOX)
+        login_button = self.driver.find_element(by=By.ID, value=self.LOGIN_BUTTON)
 
         print(dict)
         text_box.send_keys(dict.get("username"))
