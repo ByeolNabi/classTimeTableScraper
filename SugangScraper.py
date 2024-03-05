@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.select import Select
 from ClassInfoWriter import ClassInfoWriter
 
 URL = "http://sugang.deu.ac.kr:8080/DEUSugang_Login.aspx"
@@ -73,28 +74,37 @@ class SugangScraper():
             이전쪽id:(CP1_COM_Paging_Deu_lBtn_prev),
             다음쪽id:(CP1_COM_Paging_Deu_lBtn_next)
         }
+        # 과목유형
+        id="CP1_ddlSubjType"
+        selected="selected"
+        # 개설학과
+        id="CP1_ddlDeptList"
+        sele
+
         """
+        ham_element = self.driver.find_element(By.CSS_SELECTOR, 'option[value=ham]')
+
 
         # 일단 현재페이지의 정보 저장
-        lastPage = False
-        count = 1
-        while not lastPage:
-            # 그 페이지에서 강의 정보 가져오기
-            self.ScrapClassInfo()
+        # lastPage = False
+        # count = 1
+        # while not lastPage:
+        #     # 그 페이지에서 강의 정보 가져오기
+        #     self.ScrapClassInfo()
 
-            # 다음 페이지로 넘어가기  
-            nextPage = self.driver.find_element(by=By.ID, value = "CP1_COM_Paging_Deu_lBtn_next")
-            colorOfNextPage = nextPage.get_attribute("style")
+        #     # 다음 페이지로 넘어가기  
+        #     nextPage = self.driver.find_element(by=By.ID, value = "CP1_COM_Paging_Deu_lBtn_next")
+        #     colorOfNextPage = nextPage.get_attribute("style")
 
-            # 마지막이 아니면
-            if colorOfNextPage != 'color: rgb(217, 217, 217);':
-                print(f"{str(count).zfill(3)}페이지 : 저장 완료")
-                count += 1
-                nextPage.click()
-            else:
-                # 끝까지 잘 했다.
-                lastPage = True
-                print("========================\n모든 강의 정보를 저장했습니다.\n========================")
+        #     # 마지막이 아니면
+        #     if colorOfNextPage != 'color: rgb(217, 217, 217);':
+        #         print(f"{str(count).zfill(3)}페이지 : 저장 완료")
+        #         count += 1
+        #         nextPage.click()
+        #     else:
+        #         # 끝까지 잘 했다.
+        #         lastPage = True
+        #         print("========================\n모든 강의 정보를 저장했습니다.\n========================")
 
         pass
     

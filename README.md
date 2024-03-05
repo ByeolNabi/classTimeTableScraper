@@ -20,6 +20,9 @@ PW = "password"
 |**자유선택**|O|-|-|
 |**공유대학**|-|-|-|
 
+## 수강신청 사이트에서 스크래핑
+selenium을 이용한 <a href="https://www.selenium.dev/documentation/webdriver/support_features/select_lists/#select-option">select</a> 라이브러리를 사용하자
+
 
 ## 개선점<br>
 - 파일을 중간에 저장하려고 했어서 파일을 닫았더니 datetime이 달라저서 다른 파일을 생성한다.

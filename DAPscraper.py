@@ -46,7 +46,7 @@ class DAPscraper():
         trTags = classInfoTbody.find_elements(by=By.TAG_NAME, value="tr")
 
         # csv파일을 여는 부분
-        self.csvCtrl.OpenFile("./csv/test.csv","a")
+        self.csvCtrl.OpenFile("./csv/dap강의정보.csv","a")
 
         # tr을 한 줄씩 가져오고 write하기
         for trTag in trTags:
