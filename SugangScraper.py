@@ -82,7 +82,7 @@ class SugangScraper():
         sele
 
         """
-        ham_element = self.driver.find_element(By.CSS_SELECTOR, 'option[value=ham]')
+        과목유형 = self.driver.find_element(By.CSS_SELECTOR, 'option[value=1]')
 
 
         # 일단 현재페이지의 정보 저장

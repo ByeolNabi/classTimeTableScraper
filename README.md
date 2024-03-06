@@ -22,6 +22,7 @@ PW = "password"
 
 ## 수강신청 사이트에서 스크래핑
 selenium을 이용한 <a href="https://www.selenium.dev/documentation/webdriver/support_features/select_lists/#select-option">select</a> 라이브러리를 사용하자
+find_element가 안 먹힌다... onclick함수가 같이 있어서 그런가? 왜 안 되지?
 
 
 ## 개선점<br>
