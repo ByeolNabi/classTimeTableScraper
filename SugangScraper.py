@@ -82,7 +82,7 @@ class SugangScraper():
         sele
 
         """
-        과목유형 = self.driver.find_element(By.CSS_SELECTOR, 'option[value=1]')
+        nextPage = self.driver.find_element(by=By.ID, value = "CP1_COM_Paging_Deu_lBtn_next")
 
 
         # 일단 현재페이지의 정보 저장
