@@ -25,7 +25,9 @@ PW = "password"
 ## 수강신청 사이트에서 스크래핑
 selenium을 이용한 <a href="https://www.selenium.dev/documentation/webdriver/support_features/select_lists/#select-option">select</a> 라이브러리를 사용하자
 find_element가 안 먹힌다... onclick함수가 같이 있어서 그런가? 왜 안 되지?
-iframe에 안에 태그 요소가 있었다. selenium을 이용해서 iframe에 접근할 수 있는 방법을 찾아보자
+iframe에 안에 태그 요소가 있었다. selenium을 이용해서 iframe에 접근할 수 있는 방법을 찾아보자   
+   
+카테고리 경우의 수를 정립하려던 중... 과목을 하나라도 띄워두고 카테고리를 모두 전체로 바꾸면 모든 강의를 볼 수 있다.
 
 ## 개선점<br>
 - 파일을 중간에 저장하려고 했어서 파일을 닫았더니 datetime이 달라저서 다른 파일을 생성한다.
@@ -39,3 +41,4 @@ iframe에 안에 태그 요소가 있었다. selenium을 이용해서 iframe에 
 
 - csv파일에 자율교양인지 전공인지 말이 없는데...? 수강신청 시스템에서 스크래핑을 해야겠는걸...?
    - 수강신청 시스템의 강의 선택 카테고리 경우의 수 조사 및 정리
+
