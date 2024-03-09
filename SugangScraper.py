@@ -38,9 +38,10 @@ class SugangScraper():
         pass
 
     def GotoClassInfoPage(self):
-        menu_list = self.driver.find_element(by=By.CLASS_NAME, value="menulist")
-        look_up_info = menu_list.find_elements(by=By.TAG_NAME, value="li")[1]
-        look_up_info.click()
+        self.driver.get("http://sugang.deu.ac.kr:8080/DEUsiganpyo.aspx")
+        # menu_list = self.driver.find_element(by=By.CLASS_NAME, value="menulist")
+        # look_up_info = menu_list.find_elements(by=By.TAG_NAME, value="li")[1]
+        # look_up_info.click()
 
         pass
 
@@ -82,8 +83,10 @@ class SugangScraper():
         sele
 
         """
-        nextPage = self.driver.find_element(by=By.ID, value = "CP1_COM_Paging_Deu_lBtn_next")
-
+        select_element = self.driver.find_element(By.ID, 'CP1_ddlSubjType')
+        select = Select(select_element)
+        select.select_by_visible_text('교양')
+        select.select_by_value('two')
 
         # 일단 현재페이지의 정보 저장
         # lastPage = False
