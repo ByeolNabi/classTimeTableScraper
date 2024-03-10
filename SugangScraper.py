@@ -70,23 +70,23 @@ class SugangScraper():
 
     def ScrapClassInfoAll(self):
         """
-        다음쪽 style="color:#D9D9D9;" 일 때까지 다음쪽 클릭
-        {
-            이전쪽id:(CP1_COM_Paging_Deu_lBtn_prev),
-            다음쪽id:(CP1_COM_Paging_Deu_lBtn_next)
-        }
-        # 과목유형
-        id="CP1_ddlSubjType"
-        selected="selected"
-        # 개설학과
-        id="CP1_ddlDeptList"
-        sele
-
+        (과목유형:공유대학) 을 선택하고 검색을 누른 후 다시 (과목유형:전체) 를 선택하자
         """
+        # {과목유형 : 공유대학}으로 카테고리 바꾸기
         select_element = self.driver.find_element(By.ID, 'CP1_ddlSubjType')
         select = Select(select_element)
-        select.select_by_visible_text('교양')
-        select.select_by_value('two')
+        select.select_by_visible_text('공유대학')
+        
+        # 검색 클릭
+        searchBtn = self.driver.find_element(By.ID,"CP1_BtnSearch")
+        searchBtn.click()
+
+        # {과목유형 : 공유대학}으로 카테고리 바꾸기
+        select_element = self.driver.find_element(By.ID, 'CP1_ddlSubjType')
+        select = Select(select_element)
+        select.select_by_visible_text('전체')
+
+        print("stopPoint")
 
         # 일단 현재페이지의 정보 저장
         # lastPage = False
