@@ -92,8 +92,23 @@ class SugangScraper():
         # id="CP1_COM_Page_Controllor1_spnPage1" ~ "string"10까지 있음
         # 다음 10개 넘기는 버튼이 없어졌을 때, 리스트를 idx[2]부터 클릭하면 될 것 같다.
 
+        btn_id = "CP1_COM_Page_Controllor1_spnPage"
+        dst = False
+        while dst == False: # 마지막 페이지까지 반복
+            for idx in range(1,11): # 1~10페이지 클릭하기
+                page_btn = self.driver.find_elements(By.ID, btn_id+str(idx))
+                if(len(page_btn) == 0): # idx페이지가 없다면 끝
+                    dst = True
+                    break
+                else: # 있으면 이동 후 옮기기
+                    page_btn[0].click();
+                    # self.ScrapClassInfo();
+            
+            print("stop point")
+            nextpage_btn = self.driver.find_element(By.ID, "CP1_COM_Page_Controllor1_lbtnNext10")
+            nextpage_btn.click()
 
-        print("stopPoint")
+            
 
         # 일단 현재페이지의 정보 저장
         # lastPage = False
