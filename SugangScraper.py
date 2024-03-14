@@ -20,6 +20,7 @@ class SugangScraper():
         self.csvCtrl = ClassInfoWriter()
         
     def Login(self, dict):
+        print("=== 로그인 시작 ===")
         self.driver.get(self.URL)
         self.driver.implicitly_wait(5)
 
@@ -39,9 +40,27 @@ class SugangScraper():
 
     def GotoClassInfoPage(self):
         self.driver.get("http://sugang.deu.ac.kr:8080/DEUsiganpyo.aspx")
-        # menu_list = self.driver.find_element(by=By.CLASS_NAME, value="menulist")
-        # look_up_info = menu_list.find_elements(by=By.TAG_NAME, value="li")[1]
-        # look_up_info.click()
+        
+        """
+        (과목유형:공유대학) 을 선택하고 검색을 누른 후 다시 (과목유형:전체) 를 선택하자
+        """
+        # {과목유형 : 공유대학}으로 카테고리 바꾸기
+        select_element = self.driver.find_element(By.ID, 'CP1_ddlSubjType')
+        select = Select(select_element)
+        select.select_by_visible_text('공유대학')
+        
+        # 검색 클릭
+        searchBtn = self.driver.find_element(By.ID,"CP1_BtnSearch")
+        searchBtn.click()
+
+        # {과목유형 : 공유대학}으로 카테고리 바꾸기
+        select_element = self.driver.find_element(By.ID, 'CP1_ddlSubjType')
+        select = Select(select_element)
+
+        # 강의 전체조회로 만들기 => 페이지 1클릭
+        select.select_by_visible_text('전체')
+        pageBtn = self.driver.find_element(By.ID,"CP1_COM_Page_Controllor1_spnPage1")
+        pageBtn.click()
 
         pass
 
@@ -69,22 +88,10 @@ class SugangScraper():
         pass
 
     def ScrapClassInfoAll(self):
-        """
-        (과목유형:공유대학) 을 선택하고 검색을 누른 후 다시 (과목유형:전체) 를 선택하자
-        """
-        # {과목유형 : 공유대학}으로 카테고리 바꾸기
-        select_element = self.driver.find_element(By.ID, 'CP1_ddlSubjType')
-        select = Select(select_element)
-        select.select_by_visible_text('공유대학')
-        
-        # 검색 클릭
-        searchBtn = self.driver.find_element(By.ID,"CP1_BtnSearch")
-        searchBtn.click()
+        # CP1_COM_Page_Controllor1_lbtnLast이 없어질때까지 다음 페이지 넘어가기
+        # id="CP1_COM_Page_Controllor1_spnPage1" ~ "string"10까지 있음
+        # 다음 10개 넘기는 버튼이 없어졌을 때, 리스트를 idx[2]부터 클릭하면 될 것 같다.
 
-        # {과목유형 : 공유대학}으로 카테고리 바꾸기
-        select_element = self.driver.find_element(By.ID, 'CP1_ddlSubjType')
-        select = Select(select_element)
-        select.select_by_visible_text('전체')
 
         print("stopPoint")
 
@@ -112,7 +119,6 @@ class SugangScraper():
         pass
     
     def Connect(self, dict):
-        print("=== 로그인 시작 ===")
         self.Login(dict)
         print("--- 로그인 완료 ---")
         print("=== 수업계획서조회 메뉴로 이동 ===")
