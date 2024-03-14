@@ -123,15 +123,15 @@ class SugangScraper():
                     dst = True
                     break
                 else: # 있으면 이동 후 옮기기
+                    print(page_btn[0].text)
                     page_btn[0].click();
                     self.ScrapClassInfo();
-            
-            print("stop point")
+            if dst:
+                break
             nextpage_btn = self.driver.find_element(By.ID, "CP1_COM_Page_Controllor1_lbtnNext10")
             nextpage_btn.click()
 
             
-
         # 일단 현재페이지의 정보 저장
         # lastPage = False
         # count = 1
