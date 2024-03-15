@@ -110,8 +110,8 @@ class SugangScraper():
         ## 헤더 기록하기
         # 헤더 정보를 가진 행에 접근
         trTag = classInfoThead.find_element(by=By.TAG_NAME, value="tr")
-        tdTags = trTag.find_elements(by=By.TAG_NAME, value='td')
-        self.csvCtrl.trWrite(tdTags, 9)
+        thTags = trTag.find_elements(by=By.TAG_NAME, value='th')
+        self.csvCtrl.trWrite(thTags, 9)
 
         # 다음으로 넘기며 각 페이지를 기록
         btn_id = "CP1_COM_Page_Controllor1_spnPage"
