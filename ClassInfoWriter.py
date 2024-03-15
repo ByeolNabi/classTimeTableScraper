@@ -12,8 +12,17 @@ class ClassInfoWriter():
         
         pass
 
-    def Write(self, line):
-        self.writer.writerow(line)
+    def trWrite(self, tdTags, quantity):
+        classInfoData = []
+        for idx in range(quantity):
+            classInfoData.append(tdTags[idx].text)
+        
+        self.writer.writerow(classInfoData)
+
+        pass
+    
+    def Write(self, tags):
+        self.writer.writerow(tags)
         pass
 
     def CloseFile(self):
