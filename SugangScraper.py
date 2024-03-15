@@ -36,9 +36,13 @@ class SugangScraper():
         pw_box.send_keys(dict.get("password"))
         login_button.click()
 
+        print("--- 로그인 완료 ---")
+
         pass
 
     def GotoClassInfoPage(self):
+        print("=== 수업계획서조회 메뉴로 이동 ===")
+
         self.driver.get("http://sugang.deu.ac.kr:8080/DEUsiganpyo.aspx")
         
         """
@@ -62,26 +66,30 @@ class SugangScraper():
         pageBtn = self.driver.find_element(By.ID,"CP1_COM_Page_Controllor1_spnPage1")
         pageBtn.click()
 
+        print("--- 수업계획서조회 메뉴로 이동 완료 ---")
+
         pass
 
     def ScrapClassInfo(self):
-        # tbody안에 tr(한 행) 안에 td(행 열)이 존재, 필요한 정보는 앞 5열
-        
+        # thead.tr의 9번째까지가 필요한 속성이름
+        # => (개설학과,이수구분,과목번호,분반,교과목명,학점/시간,수강,학년,강의실(시간),담당교수)
+        # tbody.tr.td 9개 수집
+
+        # csv파일 접근
+        self.csvCtrl.OpenFile("./csv/test.csv","a")
+
         # 강의 정보 테이블 잡아내기
-        classInfoFrame = self.driver.find_element(by=By.ID, value="CP1_dt_result")
+        classInfoFrame = self.driver.find_element(by=By.ID, value="CP1_grdView")
+        # 데이터를 가지고 있는 tbody잡기
         classInfoTbody = classInfoFrame.find_element(by=By.TAG_NAME, value="tbody")
         # 강의 한 개의 태그(한 행)을 담은 리스트
         trTags = classInfoTbody.find_elements(by=By.TAG_NAME, value="tr")
-
-        # csv파일을 여는 부분
-        self.csvCtrl.OpenFile("./csv/test.csv","a")
-
         # tr을 한 줄씩 가져오고 write하기
         for trTag in trTags:
-            # 강의 정보 앞에서 5개 가져오기 (교과목 번호, 분반, 교과목명, 담당교수, 강의실/교실)
+            # 강의 정보 앞에서 9개 가져오기
+                # => (개설학과,이수구분,과목번호,분반,교과목명,학점/시간,수강,학년,강의실(시간),담당교수)
             tdTags = trTag.find_elements(by=By.TAG_NAME, value='td')
-            classInfoLine = [tdTags[0].text, tdTags[1].text, tdTags[2].text, tdTags[3].text, tdTags[4].text]
-            self.csvCtrl.Write(classInfoLine)
+            self.csvCtrl.trWrite(tdTags, 9)
         
         self.csvCtrl.CloseFile()
 
@@ -92,6 +100,20 @@ class SugangScraper():
         # id="CP1_COM_Page_Controllor1_spnPage1" ~ "string"10까지 있음
         # 다음 10개 넘기는 버튼이 없어졌을 때, 리스트를 idx[2]부터 클릭하면 될 것 같다.
 
+        # 파일 열기
+        self.csvCtrl.OpenFile("./csv/test.csv","a")
+
+        # 헤더 기록하기, 헤더 태그 잡기
+        classInfoFrame = self.driver.find_element(by=By.ID, value="CP1_grdView")
+        classInfoThead = classInfoFrame.find_element(by=By.TAG_NAME, value="thead")
+
+        ## 헤더 기록하기
+        # 헤더 정보를 가진 행에 접근
+        trTag = classInfoThead.find_element(by=By.TAG_NAME, value="tr")
+        tdTags = trTag.find_elements(by=By.TAG_NAME, value='td')
+        self.csvCtrl.trWrite(tdTags, 9)
+
+        # 다음으로 넘기며 각 페이지를 기록
         btn_id = "CP1_COM_Page_Controllor1_spnPage"
         dst = False
         while dst == False: # 마지막 페이지까지 반복
@@ -102,7 +124,7 @@ class SugangScraper():
                     break
                 else: # 있으면 이동 후 옮기기
                     page_btn[0].click();
-                    # self.ScrapClassInfo();
+                    self.ScrapClassInfo();
             
             print("stop point")
             nextpage_btn = self.driver.find_element(By.ID, "CP1_COM_Page_Controllor1_lbtnNext10")
@@ -135,10 +157,7 @@ class SugangScraper():
     
     def Connect(self, dict):
         self.Login(dict)
-        print("--- 로그인 완료 ---")
-        print("=== 수업계획서조회 메뉴로 이동 ===")
         self.GotoClassInfoPage()
-        print("--- 수업계획서조회 메뉴로 이동 완료 ---")
         self.ScrapClassInfoAll()
         self.driver.quit()
         pass
