@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from ClassInfoWriter import ClassInfoWriter
+from Config import 파일이름
 
 URL = "http://sugang.deu.ac.kr:8080/DEUSugang_Login.aspx"
 ID_BOX = "txtID"
@@ -76,7 +77,7 @@ class SugangScraper():
         # tbody.tr.td 9개 수집
 
         # csv파일 접근
-        self.csvCtrl.OpenFile("./csv/test.csv","a")
+        self.csvCtrl.OpenFile(f"./csv/{파일이름}.csv","a")
 
         # 강의 정보 테이블 잡아내기
         classInfoFrame = self.driver.find_element(by=By.ID, value="CP1_grdView")
@@ -101,7 +102,7 @@ class SugangScraper():
         # 다음 10개 넘기는 버튼이 없어졌을 때, 리스트를 idx[2]부터 클릭하면 될 것 같다.
 
         # 파일 열기
-        self.csvCtrl.OpenFile("./csv/test.csv","a")
+        self.csvCtrl.OpenFile(f"./csv/{파일이름}.csv","a")
 
         # 헤더 기록하기, 헤더 태그 잡기
         classInfoFrame = self.driver.find_element(by=By.ID, value="CP1_grdView")
