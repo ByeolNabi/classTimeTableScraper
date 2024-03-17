@@ -1,11 +1,17 @@
 
 # 사용법
 Config.py파일을 만들어주세요.   
-그 안에 ID와 PW를 기록해주세요.
+그 안에 ID와 PW 그리고 시간표를 저장할 파일 이름을 기록해주세요.(파일은 존재하지 않아도 됨)
 ```python
+# Config.py
 # 아래 형식을 이용해주세요.
 ID = "20240000"
 PW = "password"
+파일이름 = "2024년도_1학기_시간표"
+```
+```shell
+# mainSugang.py를 실행해주세요
+python3 mainSugang.py
 ```
 ## 교양 카테고리 정리
 ```
