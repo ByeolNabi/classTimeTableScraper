@@ -161,4 +161,5 @@ class SugangScraper():
         self.GotoClassInfoPage()
         self.ScrapClassInfoAll()
         self.driver.quit()
+        print("정상적으로 종료되었습니다.")
         pass
